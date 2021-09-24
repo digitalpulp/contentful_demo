@@ -22,8 +22,9 @@ const PostBodyComponents = [
     <script key="jquery-once" src="/js/vendor/jquery.once.min.js" />
     <script key="swiper-js" src="/js/vendor/swiper-bundle.min.js" />
 
-    <script key="dp" src="/js/DP.js"></script>
-    <script key="homepage-hero" src="/js/homepageHero.js"></script>
+    <script key="dp-js" src="/js/DP.js"></script>
+    <script key="homepage-hero-js" src="/js/homepageHero.js"></script>
+    <script key="vertical-tabbed-carousel-js" src="/js/verticalTabbedCarousel.js"></script>
   </>
 ]
 

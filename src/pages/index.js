@@ -76,6 +76,7 @@ export const query = graphql`
             title
             slides {
               id
+              title
               description {
                 childMarkdownRemark {
                   html

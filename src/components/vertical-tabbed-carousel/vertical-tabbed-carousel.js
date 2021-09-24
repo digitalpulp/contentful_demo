@@ -3,38 +3,34 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 
 const VerticalTabbedCarouselItem = ({ item, index }) => {
   return (
-    <div className={"cc--component-container cc--home-page-hero-item swiper-slide"}>
-      <div className={'c--component c--home-page-hero-item'}>
+    <div className={"cc--component-container cc--vertical-tabbed-carousel-slide swiper-slide"}>
+      <div className={'c--component c--vertical-tabbed-carousel-slide'}>
 
-        <div className="image-video">
-
-          <div className="text-wrapper">
-            <div className={item.textAlignment === 'Left' ? "textural-text left" : 'textural-text right'} role="presentation" aria-hidden="true">
-              {item.texturalType}
-            </div>
-          </div>
-
-          {item.image != null &&
-            <GatsbyImage alt="" image={item.image.gatsbyImageData} className="f--field f--image" style={{width: 'auto', height: '100vh'}} />
-          }
-
-        </div>
+        {item.image != null &&
+          <GatsbyImage alt="" image={item.image.gatsbyImageData} className="f--field f--image" style={{width: '100%', height: '0'}} />
+        }
 
         <div className={"text-container-wrapper"}>
             <div className={"text-container"}>
               <div className={"text-container-inner"}>
-                <div className={"f--field f--section-title"}>
-                  <h2>
-                    {item.title}
-                  </h2>
-                </div>
+                <h2 className={'tab-title'}>{item.title}</h2>
+
                 {item.description != null && 
                   <div className={"f--field f--description"}
                     dangerouslySetInnerHTML={{
-                      __html: item.description.childMarkdownRemark.html,
+                      __html: '<strong class="tab-caption">' + item.title + '</strong>' + item.description.childMarkdownRemark.html,
                     }}>
                   </div>
                 }
+
+                {item.link != null && 
+                  <div className={'f--field f--link'}>
+                    <a className={"button button--svg ally-focus-within"} href={item.link.url} aria-hidden="false" tabIndex="0">
+                      <span>{item.link.title} <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 9 15" xmlSpace="preserve"><polygon points="0,0 9,7.5 0,15 "></polygon></svg></span>
+                    </a>
+                  </div>
+                }
+
               </div>
             </div>
           </div>
@@ -65,10 +61,10 @@ const VerticalTabbedCarousel = ({ data }) => {
               <div className={'side-nav'}>
                 <div className={'side-nav-inner'}>
                   <ul className={'swiper-pagination swiper-pagination-clickable swiper-pagination-bullets'}>
-                    <li className={'swiper-pagination-customs'}><button class={'side-nav-link'}>New York City Campus</button></li>
-                    <li className={'swiper-pagination-customs'}><button class={'side-nav-link'}>Westchester Campus</button></li>
-                    <li className={'swiper-pagination-customs'}><button class={'side-nav-link'}>Haub Law Campus</button></li>
-                    <li className={'swiper-pagination-customs'}><button class={'side-nav-link'}>Pace Online</button></li></ul>
+                    {slides.map((item, i) => 
+                      <li className={'swiper-pagination-customs'} key={i}><button className={'side-nav-link'}>{item.title}</button></li>
+                    )}
+                  </ul>
                 </div>
               </div>
 

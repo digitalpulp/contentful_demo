@@ -36,6 +36,7 @@ export const query = graphql`
               quality: 70
             )
           }
+          videoUrl
           texturalType
           textAlignment
         }

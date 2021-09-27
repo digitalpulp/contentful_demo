@@ -1,6 +1,49 @@
 import React from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
+class HeroImageVideo extends React.Component {
+  render () {
+    const image = <GatsbyImage alt="" image={this.props.image.gatsbyImageData} className="f--field f--image" style={{width: 'auto', height: '100vh'}} />;
+    let markup;
+
+    if (this.props.videoUrl != null) {
+      markup = <>
+        <div className={"f--field f--ambient-video"}>
+          <video
+            loop
+            autoPlay
+            playsInline
+            muted
+          >
+            <source src={this.props.videoUrl} type="video/mp4" />
+          </video>
+        </div>
+
+        {image}        
+
+        <div className={"video-controls"}>
+          <div className={"video-controls-inner"}>
+            <button aria-label="Pause Video" className={"video-button video-pause-button"} aria-hidden="false" tabIndex="0">
+              <svg height="15" viewBox="0 0 9 15" width="9" xmlns="http://www.w3.org/2000/svg"><path d="m10.7142857 5.71428571v14.28571429h-2.14285713v-14.28571429zm5.7142857 0v14.28571429h-2.1428571v-14.28571429z" fill="#4780b5" fillRule="evenodd" transform="translate(-8 -5.5)"></path></svg>
+            </button>
+            <button aria-label="Play Video" className="video-button video-play-button" aria-hidden="false" tabIndex="0">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 75 75" enableBackground="new 0 0 75 75" xmlSpace="preserve">
+              <polygon fill="#FFFFFF" points="47.5,37.5 32.5,47.5 32.5,27.5 "></polygon></svg>
+            </button>
+          </div>
+        </div>
+      </>
+    }
+    else {
+      markup = <>
+          {image}
+        </>
+    }
+
+    return markup;
+  }
+}
+
 const HomepageHeroItem = ({ item, index }) => {
   return (
     <div className={"cc--component-container cc--home-page-hero-item swiper-slide"}>
@@ -9,14 +52,10 @@ const HomepageHeroItem = ({ item, index }) => {
         <div className="image-video">
 
           <div className="text-wrapper">
-            <div className={item.textAlignment === 'Left' ? "textural-text left" : 'textural-text right'} role="presentation" aria-hidden="true">
-              {item.texturalType}
-            </div>
+            <div className={item.textAlignment === 'Left' ? "textural-text left" : 'textural-text right'} role="presentation" aria-hidden="true">{item.texturalType}</div>
           </div>
 
-          {item.image != null &&
-            <GatsbyImage alt="" image={item.image.gatsbyImageData} className="f--field f--image" style={{width: 'auto', height: '100vh'}} />
-          }
+          <HeroImageVideo image={item.image} videoUrl={item.videoUrl} />
 
         </div>
 
@@ -52,7 +91,7 @@ const HomepageHero = ({ title, slides }) => {
         <div className={"swiper-container"}>
           <div className={"swiper-wrapper"}>
             
-            {slides.map((item, i) => 
+            {slides.map((item, i) =>
               <HomepageHeroItem item={item} key={item.id} />
             )}
 
